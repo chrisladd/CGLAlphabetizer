@@ -10,7 +10,7 @@ You might use it to sort an array into alphabetized sections, for use in a table
 
 If you're using Cocoapods, like you should, add this to your podfile:
 
-`pod 'CGLMail', '~> 0.1'`
+`pod 'CGLAlphabetizer', '~> 0.1'`
 
 Otherwise, you can just download and drag in `CGLAlphabetizer.h` and `CGLAlphabetizer.m` from the `Classes` folder.
 

@@ -12,4 +12,6 @@
 
 @property (nonatomic, readonly) NSString *fullName;
 
++ (CGLContact *)contactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName;
+
 @end

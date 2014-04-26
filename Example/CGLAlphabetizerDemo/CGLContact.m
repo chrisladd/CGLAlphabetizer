@@ -14,4 +14,12 @@
     return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
 }
 
++ (CGLContact *)contactWithFirstName:(NSString *)firstName lastName:(NSString *)lastName {
+    CGLContact *contact = [[CGLContact alloc] init];
+    contact.firstName = firstName;
+    contact.lastName = lastName;
+    
+    return contact;
+}
+
 @end

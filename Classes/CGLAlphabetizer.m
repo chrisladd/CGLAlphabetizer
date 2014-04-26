@@ -13,12 +13,12 @@
 + (NSDictionary *)alphabetizedDictionaryFromObjects:(NSArray *)objects usingKeyPath:(NSString *)keyPath {
     return [self alphabetizedDictionaryFromObjects:objects
                                       usingKeyPath:keyPath
-                        nonAlphanumericPlaceholder:nil];
+                          nonAlphabeticPlaceholder:nil];
 }
 
 + (NSDictionary *)alphabetizedDictionaryFromObjects:(NSArray *)objects
                                        usingKeyPath:(NSString *)keyPath
-                         nonAlphanumericPlaceholder:(NSString *)placeholder {
+                           nonAlphabeticPlaceholder:(NSString *)placeholder {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     NSString *nonLetterPlaceholder = [placeholder length] ? placeholder : @"#";
     for (id object in objects) {

@@ -19,10 +19,9 @@
         // assume the last "word" is the last name
         NSRange finalSpaceRange = [line rangeOfString:@" " options:NSBackwardsSearch];
         if (finalSpaceRange.location != NSNotFound) {
-            CGLContact *contact = [[CGLContact alloc] init];
-            contact.firstName = [line substringToIndex:finalSpaceRange.location];
-            contact.lastName = [line substringFromIndex:NSMaxRange(finalSpaceRange)];
-            
+            CGLContact *contact = [CGLContact contactWithFirstName:[line substringToIndex:finalSpaceRange.location]
+                                                          lastName:[line substringFromIndex:NSMaxRange(finalSpaceRange)]];
+
             if ([contact.firstName length] && [[contact lastName] length]) {
                 [contacts addObject:contact];
             }

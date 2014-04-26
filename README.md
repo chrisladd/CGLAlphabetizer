@@ -63,4 +63,12 @@ NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObject
 
 ````
 
-And, if you were planning on using them for a tableVie
+And, if you were planning on using them for a tableView, there's a handy method for that, too:
+
+````objc-c
+
+NSArray *indexTitle = [CGLAlphabetizer indexTitlesFromAlphabetizedDictionary:sortedContacts];
+
+// => @[@"B", @"E", @"L", @"S"]
+
+````

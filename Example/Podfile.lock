@@ -1,0 +1,14 @@
+PODS:
+  - CGLAlphabetizer (0.1.0)
+
+DEPENDENCIES:
+  - CGLAlphabetizer (from `../`)
+
+EXTERNAL SOURCES:
+  CGLAlphabetizer:
+    :path: ../
+
+SPEC CHECKSUMS:
+  CGLAlphabetizer: 4ad8d2aca94aaa37e832bbb6cac1552aa8e6d6b6
+
+COCOAPODS: 0.32.1

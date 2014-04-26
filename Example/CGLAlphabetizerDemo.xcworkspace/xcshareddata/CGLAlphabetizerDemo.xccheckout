@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0DA39FC0-C789-4938-80A6-7AA1A6CC7F28</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CGLAlphabetizerDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>723E1EB6-49FB-4AFB-9035-1BC03392A192</key>
+		<string>https://github.com/chrisladd/CGLAlphabetizer.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Example/CGLAlphabetizerDemo.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>723E1EB6-49FB-4AFB-9035-1BC03392A192</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/chrisladd/CGLAlphabetizer.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>723E1EB6-49FB-4AFB-9035-1BC03392A192</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>723E1EB6-49FB-4AFB-9035-1BC03392A192</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CGLAlphabetizer</string>
+		</dict>
+	</array>
+</dict>
+</plist>

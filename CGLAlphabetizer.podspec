@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "CGLAlphabetizer"
   s.version          = "0.1.0"
-  s.summary          = "A simple class to easily alphabetize an array of objects, useful for UITableViews like iOS's Music and Contacts apps."
+  s.summary          = "A simple class to easily alphabetize an array of objects, useful for sectioning UITableViews in alphabetical order, like Music and Contacts."
   
   s.homepage         = "https://github.com/chrisladd/CGLAlphabetizer"
   s.screenshots      = "https://raw.githubusercontent.com/chrisladd/CGLAlphabetizer/master/Example/demo.gif"

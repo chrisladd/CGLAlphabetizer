@@ -1,11 +1,20 @@
-CGLAlphabetizer
-============
+## CGLAlphabetizer
 
 A simple class to easily alphabetize an array of objects.
 
 You might use it to sort an array into alphabetized sections, for use in a tableView like the Phone, Contacts, and Music apps in iOS.
 
 ![Demo app](https://raw.githubusercontent.com/chrisladd/CGLAlphabetizer/master/Example/demo.gif)
+
+### Installation
+
+If you're using Cocoapods, like you should, add this to your podfile:
+
+`pod 'CGLMail', '~> 0.1'`
+
+Otherwise, you can just download and drag in `CGLAlphabetizer.h` and `CGLAlphabetizer.m` from the `Classes` folder.
+
+### Usage
 
 The CGLAlphabetizer object accepts an array of objects and a key path to alphabetize by, and returns an NSDictionary keyed by first letter, with arrays of objects tied to each.
 
@@ -73,6 +82,7 @@ NSArray *indexTitle = [CGLAlphabetizer indexTitlesFromAlphabetizedDictionary:sor
 
 ````
 
+### Easy-as-pie Alphabetized UITableView
 
 Putting these pieces together to alphabetize the contents of a UITableViewController might then look something like this:
 

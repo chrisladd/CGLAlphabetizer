@@ -36,7 +36,7 @@ NSArray *contacts = @[steve, bill, larry, eric];
 
 You could sort them like so:
 
-````objc-c
+````obj-c
 
 NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObjects:contacts usingKeyPath:@"lastName"];
 
@@ -50,7 +50,7 @@ NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObject
 
 Or even like so:
 
-````objc-c
+````obj-c
 
 NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObjects:contacts usingKeyPath:@"firstName"];
 
@@ -70,5 +70,65 @@ And, if you were planning on using them for a tableView, there's a handy method 
 NSArray *indexTitle = [CGLAlphabetizer indexTitlesFromAlphabetizedDictionary:sortedContacts];
 
 // => @[@"B", @"E", @"L", @"S"]
+
+````
+
+
+Putting these pieces together to alphabetize the contents of a UITableViewController might then look something like this:
+
+````obj-c
+
+static NSString * const CGLContactsCellIdentifier = @"CGLContactsCellIdentifier";
+
+@interface CGLContactsTableViewController ()
+@property (nonatomic) NSDictionary *alphabetizedDictionary;
+@property (nonatomic) NSArray *sectionIndexTitles;
+@end
+
+@implementation CGLContactsTableViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CGLContactsCellIdentifier];
+}
+
+- (void)setContacts:(NSArray *)contacts {
+    _contacts = contacts;
+    self.alphabetizedDictionary = [CGLAlphabetizer alphabetizedDictionaryFromObjects:_contacts usingKeyPath:@"lastName"];
+    self.sectionIndexTitles = [CGLAlphabetizer indexTitlesFromAlphabetizedDictionary:self.alphabetizedDictionary];
+    
+    [self.tableView reloadData];
+}
+
+- (CGLContact *)objectAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *sectionIndexTitle = self.sectionIndexTitles[indexPath.section];
+    return self.alphabetizedDictionary[sectionIndexTitle][indexPath.row];
+}
+
+#pragma mark - Table view data source
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return self.sectionIndexTitles;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.sectionIndexTitles count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSString *sectionIndexTitle = self.sectionIndexTitles[section];
+    return [self.alphabetizedDictionary[sectionIndexTitle] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CGLContactsCellIdentifier forIndexPath:indexPath];
+    
+    CGLContact *contact = [self objectAtIndexPath:indexPath];
+    cell.textLabel.text = contact.fullName;
+
+    return cell;
+}
+
+@end
 
 ````

@@ -47,7 +47,8 @@ You could sort them like so:
 
 ````obj-c
 
-NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObjects:contacts usingKeyPath:@"lastName"];
+NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObjects:contacts 
+                                                                     usingKeyPath:@"lastName"];
 
 // => @{
         @"E" : @[larry],
@@ -61,7 +62,8 @@ Or even like so:
 
 ````obj-c
 
-NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObjects:contacts usingKeyPath:@"firstName"];
+NSDictionary *sortedContacts = [CGLAlphabetizer alphabetizedDictionaryFromObjects:contacts 
+                                                                     usingKeyPath:@"firstName"];
 
 // => @{
         @"B" : @[bill],

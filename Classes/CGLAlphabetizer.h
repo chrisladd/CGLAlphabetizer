@@ -6,7 +6,12 @@
 //  Copyright (c) 2014 Chris Ladd. All rights reserved.
 //
 
+extern NSString * const CGLAlphabetizerGroupNameKey;
+extern NSString * const CGLAlphabetizerGroupObjectsKey;
+
 @interface CGLAlphabetizer : NSObject
+
+#pragma mark - Alphabetization
 
 /**
  *  Accepts an arbitrary array of objects and a key path to alphabetize by, and returns an NSDictionary keyed by first letter, with arrays of objects tied to each.
@@ -25,6 +30,20 @@
 + (NSDictionary *)alphabetizedDictionaryFromObjects:(NSArray *)objects
                                        usingKeyPath:(NSString *)keyPath
                            nonAlphabeticPlaceholder:(NSString *)placeholder;
+
+#pragma mark - Grouping
+
+/**
+ *  Filters an array of objects into groups based on the response to keyPath, and then sorts those groups into alphabetical sections, similar to the iOS Music app, keyed by the first letter of those groups.
+ *
+ *  @param objects     an array of objects
+ *  @param keyPath     a key path by which to group the objects. For example, song.artist.
+ *  @param placeholder the placeholder to be used when the results of keyPath do not begin with a letter, or return nil
+ *
+ *  @return a dictionary, keyed by first letter, each value of which is a grouped dictionary with format @{ @"name" : resultOfKeyPath, @"objects" : anArrayOfMatchingObjects }
+ */
++ (NSDictionary *)groupedDictionaryFromObjects:(NSArray *)objects usingKeyPath:(NSString *)keyPath sortBy:(NSString *)sortableKeyPath nonAlphabeticPlaceholder:(NSString *)placeholder;
+
 
 /**
  *  Generates a sorted array of index titles from an alphabetized dictionary. 

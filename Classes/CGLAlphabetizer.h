@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Chris Ladd. All rights reserved.
 //
 
-extern NSString * const CGLAlphabetizerGroupNameKey;
 extern NSString * const CGLAlphabetizerGroupObjectsKey;
+extern NSString * const CGLAlphabetizerGroupDisplayNameKey;
 
 @interface CGLAlphabetizer : NSObject
 

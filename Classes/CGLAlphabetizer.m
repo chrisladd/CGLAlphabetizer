@@ -7,8 +7,9 @@
 
 #import "CGLAlphabetizer.h"
 
-NSString * const CGLAlphabetizerGroupNameKey = @"name";
+NSString * const CGLAlphabetizerGroupSortNameKey = @"name";
 NSString * const CGLAlphabetizerGroupObjectsKey = @"objects";
+NSString * const CGLAlphabetizerGroupDisplayNameKey = @"displayName";
 
 @implementation CGLAlphabetizer
 
@@ -40,23 +41,26 @@ NSString * const CGLAlphabetizerGroupObjectsKey = @"objects";
     return keyedDictionary;
 }
 
-
-+ (NSString *)keyFromObject:(id)object usingKeyPath:(NSString *)keyPath placeholder:(NSString *)placeholder maxLength:(NSUInteger)maxLength validCharacterSet:(NSCharacterSet *)validCharacterSet {
++ (NSString *)keyFromObject:(id)object usingKeyPath:(NSString *)keyPath result:(NSString **)keyPathResult placeholder:(NSString *)placeholder maxLength:(NSUInteger)maxLength validCharacterSet:(NSCharacterSet *)validCharacterSet {
+    NSString *result = placeholder;
     NSString *key = placeholder;
     
     if ([object respondsToSelector:NSSelectorFromString(keyPath)] || [object isKindOfClass:[NSDictionary class]]) {
         id possibleKey = [object valueForKeyPath:keyPath];
         
         if ([possibleKey isKindOfClass:[NSString class]] && [possibleKey length]) {
+            result = possibleKey;
             key = possibleKey;
             
             if (maxLength > 0 && [key length] > maxLength) {
                 key = [key substringToIndex:maxLength];
             }
             
-            NSRange theRange = [key rangeOfString:@"The "];
-            if (theRange.location == 0) {
-                key = [[key substringFromIndex:NSMaxRange(theRange)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString *ignorableBeginning = [self ignorableBeginningWordFromString:key];
+            
+            if ([ignorableBeginning length]) {
+                key = [[key substringFromIndex:[ignorableBeginning length]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] ;
+                key = [key stringByAppendingFormat:@", %@", ignorableBeginning];
             }
             
             if (validCharacterSet) {
@@ -68,8 +72,23 @@ NSString * const CGLAlphabetizerGroupObjectsKey = @"objects";
         }
     }
     
-    return key;
+    if (keyPathResult) {
+        *keyPathResult = result;
+    }
     
+    return key;
+}
+
++ (NSString *)ignorableBeginningWordFromString:(NSString *)string {
+    NSArray *ignorableWords = @[@"A ", @"The "];
+    
+    for (NSString *ignorable in ignorableWords) {
+        if ([string rangeOfString:ignorable].location == 0) {
+            return ignorable;
+        }
+    }
+    
+    return nil;
 }
 
 + (NSDictionary *)groupedDictionaryFromObjects:(NSArray *)objects usingKeyPath:(NSString *)keyPath sortBy:(NSString *)sortableKeyPath nonAlphabeticPlaceholder:(NSString *)placeholder {
@@ -77,13 +96,15 @@ NSString * const CGLAlphabetizerGroupObjectsKey = @"objects";
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     NSString *nonLetterPlaceholder = [placeholder length] ? placeholder : @"#";
     for (id object in objects) {
-        NSString *name = [self keyFromObject:object usingKeyPath:keyPath placeholder:nonLetterPlaceholder maxLength:0 validCharacterSet:nil];
+        NSString *name;
+        NSString *key = [self keyFromObject:object usingKeyPath:keyPath result:&name placeholder:nonLetterPlaceholder maxLength:0 validCharacterSet:nil];
         
-        NSMutableDictionary *keyedDictionary = [self findOrCreateDictionaryForKey:[name uppercaseString]
+        NSMutableDictionary *keyedDictionary = [self findOrCreateDictionaryForKey:[key uppercaseString]
                                                                      inDictionary:dictionary];
 
         NSMutableArray *array = [self findOrCreateArrayForKey:CGLAlphabetizerGroupObjectsKey inDictionary:keyedDictionary];
-        keyedDictionary[CGLAlphabetizerGroupNameKey] = name;
+        keyedDictionary[CGLAlphabetizerGroupSortNameKey] = key;
+        keyedDictionary[CGLAlphabetizerGroupDisplayNameKey] = name;
         
         [array addObject:object];
     }
@@ -94,7 +115,7 @@ NSString * const CGLAlphabetizerGroupObjectsKey = @"objects";
     }
 
     return [self alphabetizedDictionaryFromObjects:[dictionary allValues]
-                                      usingKeyPath:CGLAlphabetizerGroupNameKey
+                                      usingKeyPath:CGLAlphabetizerGroupSortNameKey
                           nonAlphabeticPlaceholder:placeholder];
 }
 
@@ -105,7 +126,7 @@ NSString * const CGLAlphabetizerGroupObjectsKey = @"objects";
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     NSString *nonLetterPlaceholder = [placeholder length] ? placeholder : @"#";
     for (id object in objects) {
-        NSString *firstLetter = [self keyFromObject:object usingKeyPath:keyPath placeholder:nonLetterPlaceholder maxLength:1 validCharacterSet:[NSCharacterSet letterCharacterSet]];
+        NSString *firstLetter = [self keyFromObject:object usingKeyPath:keyPath result:nil placeholder:nonLetterPlaceholder maxLength:1 validCharacterSet:[NSCharacterSet letterCharacterSet]];
         firstLetter = [firstLetter uppercaseString];
         NSMutableArray *array = [self findOrCreateArrayForKey:firstLetter inDictionary:dictionary];
         [array addObject:object];

@@ -42,7 +42,10 @@ extern NSString * const CGLAlphabetizerGroupDisplayNameKey;
  *
  *  @return a dictionary, keyed by first letter, each value of which is a grouped dictionary with format @{ @"name" : resultOfKeyPath, @"objects" : anArrayOfMatchingObjects }
  */
-+ (NSDictionary *)groupedDictionaryFromObjects:(NSArray *)objects usingKeyPath:(NSString *)keyPath sortBy:(NSString *)sortableKeyPath nonAlphabeticPlaceholder:(NSString *)placeholder;
++ (NSDictionary *)groupedDictionaryFromObjects:(NSArray *)objects
+                                  usingKeyPath:(NSString *)keyPath
+                                        sortBy:(NSString *)sortableKeyPath
+                      nonAlphabeticPlaceholder:(NSString *)placeholder;
 
 
 /**

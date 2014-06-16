@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Chris Ladd. All rights reserved.
 //
 
+extern NSString * const CGLAlphabetizerGroupSortNameKey;
 extern NSString * const CGLAlphabetizerGroupObjectsKey;
 extern NSString * const CGLAlphabetizerGroupDisplayNameKey;
 

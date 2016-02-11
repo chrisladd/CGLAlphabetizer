@@ -8,7 +8,7 @@ You might use it to sort an array into alphabetized sections, for use in a table
 
 ### Installation
 
-If you're using Cocoapods, like you should, add this to your podfile:
+If you're using CocoaPods, like you should, add this to your podfile:
 
 `pod 'CGLAlphabetizer', '~> 0.1'`
 
